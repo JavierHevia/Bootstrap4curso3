@@ -38,6 +38,7 @@ export const fetchDishes = () => (dispatch) => {
     return fetch(baseUrl + 'dishes')
         .then(response => {
             if (response.ok) {
+                //alert("si ok")
                 return response;
             } else {
                 var error = new Error('Error ' + response.status + ': ' + response.statusText);
@@ -47,6 +48,7 @@ export const fetchDishes = () => (dispatch) => {
         },
             error => {
                 var errmess = new Error(error.message);
+                //alert("si no")
                 throw errmess;
             })
         .then(response => response.json())
@@ -140,4 +142,17 @@ export const leadersFailed = (errmess) => ({
 export const addLeaders = (leaders) => ({
     type: ActionTypes.ADD_LEADERS,
     payload: leaders
+});
+
+export const postFavorite = (dishId) => (dispatch) => {
+
+    setTimeout(() => {
+        dispatch(addFavorite(dishId));
+    }, 2000);
+};
+
+
+export const addFavorite = (dishId) => ({
+    type: ActionTypes.ADD_FAVORITE,
+    payload: dishId
 });
