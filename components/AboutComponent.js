@@ -5,6 +5,7 @@ import { ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseimg } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
     return {
@@ -67,22 +68,34 @@ function ListItems(props) {
     else if (item.leaders.errMess) {
         return (
             <ScrollView>
-                <History />
-                <Card
-                    title='Corporate Leadership'>
-                    <Text>{item.leaders.errMess}</Text>
-                </Card>
+                <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+                    <History />
+                    <Card
+                        title='Corporate Leadership'>
+                        <Text>{this.props.leaders.errMess}</Text>
+                    </Card>
+                </Animatable.View>
             </ScrollView>
         );
     } else {
-       
+
         return (
-            
-            <FlatList
-                data={item.leaders}
-                renderItem={renderMenuItem}
-                keyExtractor={item => item.id.toString()}
-            />
+
+            <ScrollView>
+                <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+
+                    <Card
+                        title='Corporate Leadership'>
+                        <FlatList
+                            data={item.leaders}
+                            renderItem={renderMenuItem}
+                            keyExtractor={item => item.id.toString()}
+                        />
+                    </Card>
+                </Animatable.View>
+            </ScrollView>
+
+
         );
     }
 }
