@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, StyleSheet, Picker, Switch, Button, Modal, Alert  } from 'react-native';
+import { Text, View, ScrollView, StyleSheet, Picker, Switch, Button, Modal, Alert } from 'react-native';
 import DatePicker from 'react-native-datepicker'
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { render } from 'react-dom';
 import * as Animatable from 'react-native-animatable';
 
 class Reservation extends Component {
@@ -31,15 +29,15 @@ class Reservation extends Component {
             'Your Reservation OK?',
             `Number of Guests: ${this.state.guests} \nSmoking? ${this.state.smoking ? 'Yes' : 'No'} \nDate and Time: ${this.state.date}`,
             [
-              {
-                text: 'Cancel', onPress: () => {console.log('Not Reserved'); this.resetForm()}, style: 'cancel'
-              },
-              {
-                text: 'OK', onPress: () => {console.log('Table was reserved'); this.resetForm()}
-              }
+                {
+                    text: 'Cancel', onPress: () => { console.log('Not Reserved'); this.resetForm() }, style: 'cancel'
+                },
+                {
+                    text: 'OK', onPress: () => { console.log('Table was reserved'); this.resetForm() }
+                }
             ],
             { cancelable: false }
-          )
+        )
         //this.toggleModal();
     }
 

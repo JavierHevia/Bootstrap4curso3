@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
 import Reservation from './ReservationComponent';
 import Favorites from './FavoriteComponent';
+import Login from './LoginComponent';
 
 const mapStateToProps = state => {
   return {
@@ -29,21 +30,38 @@ const mapDispatchToProps = dispatch => ({
 
 })
 
+const LoginNavigator = createStackNavigator({
+  Login: { screen: Login }
+}, {
+  navigationOptions: ({ navigation }) => ({
+    headerStyle: {
+      backgroundColor: "#512DA8"
+    },
+    headerTitleStyle: {
+      color: "#fff"
+    },
+    headerTintColor: "#fff",
+    headerLeft: <Icon name="menu" size={24}
+      iconStyle={{ color: 'white' }}
+      onPress={() => navigation.toggleDrawer()} />
+  })
+});
+
 
 const FavoritesNavigator = createStackNavigator({
   Favorites: { screen: Favorites }
 }, {
   navigationOptions: ({ navigation }) => ({
     headerStyle: {
-        backgroundColor: "#512DA8"
+      backgroundColor: "#512DA8"
     },
     headerTitleStyle: {
-        color: "#fff"            
+      color: "#fff"
     },
     headerTintColor: "#fff",
     headerLeft: <Icon name="menu" size={24}
-      iconStyle={{ color: 'white' }} 
-      onPress={ () => navigation.navigate('DrawerToggle') } />    
+      iconStyle={{ color: 'white' }}
+      onPress={() => navigation.navigate('DrawerToggle')} />
   })
 })
 
@@ -161,6 +179,22 @@ const CustomDrawerContentComponent = (props) => (
 );
 
 const MainNavigator = createDrawerNavigator({
+  Login:
+  {
+    screen: LoginNavigator,
+    navigationOptions: {
+      title: 'Login',
+      drawerLabel: 'Login',
+      drawerIcon: ({ tintColor, focused }) => (
+        <Icon
+          name='sign-in'
+          type='font-awesome'
+          size={24}
+          iconStyle={{ color: tintColor }}
+        />
+      ),
+    }
+  },
   Home:
   {
     screen: HomeNavigator,
@@ -240,14 +274,15 @@ const MainNavigator = createDrawerNavigator({
     }
   },
   Favorites:
-  { screen: FavoritesNavigator,
+  {
+    screen: FavoritesNavigator,
     navigationOptions: {
       title: 'My Favorites',
       drawerLabel: 'My Favorites',
       drawerIcon: ({ tintColor, focused }) => (
         <Icon
           name='heart'
-          type='font-awesome'            
+          type='font-awesome'
           size={24}
           iconStyle={{ color: tintColor }}
         />
@@ -255,6 +290,7 @@ const MainNavigator = createDrawerNavigator({
     }
   }
 }, {
+  initialRouteName: 'Home',
   drawerBackgroundColor: '#D1C4E9',
   contentComponent: CustomDrawerContentComponent
 });
